@@ -1,0 +1,47 @@
+:root {
+  /* Colors */
+  --bg-color: #E6E9EF; /* Warm/Soft Beige-Gray */
+  --text-main: #2D3748;
+  --text-muted: #718096;
+  --accent: #319795; /* Muted Teal */
+  --accent-hover: #2C7A7B;
+  
+  --shadow-light: #FFFFFF;
+  --shadow-dark: #C3C9D6;
+  
+  --white: #FFFFFF;
+  --error: #E53E3E;
+  --success: #38A169;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Neumorphic Shadows */
+  --neu-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+  --neu-shadow-sm: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  --neu-shadow-hover: 12px 12px 24px var(--shadow-dark), -12px -12px 24px var(--shadow-light);
+  --neu-shadow-inset: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+  --neu-shadow-inset-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1A202C; /* Deep Dark */
+  --text-main: #E2E8F0;
+  --text-muted: #A0AEC0;
+  --accent: #38B2AC;
+  --accent-hover: #4FD1C5;
+  
+  --shadow-light: #2D3748; /* Lighter dark */
+  --shadow-dark: #0D1117; /* Darker dark */
+}

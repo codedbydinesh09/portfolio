@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Main Backgrounds */
+  --bg-primary: #DAF1DE; 
+  --bg-secondary: #8EB69B;
+  
+  /* Component Backgrounds */
+  --bg-card: #FFFFFF;
+  
+  /* Text */
+  --text-primary: #051F20;
+  --text-secondary: #0B2B26;
+  --text-body: #163832;
+  --text-muted: #235347;
+  --text-placeholder: #8EB69B;
+  
+  /* Accents */
+  --accent-primary: #163832;
+  --accent-hover: #235347;
+  --accent-active: #051F20;
+  --accent-secondary: #8EB69B;
+  
+  /* Borders & Dividers */
+  --border-color: rgba(11, 43, 38, 0.08);
+  --border-input: #8EB69B;
+  --border-focus: #163832;
+  
+  /* Status */
+  --success: #8EB69B;
+  --warning: #235347;
+  --error: #051F20;
+}
+
+@theme inline {
+  --color-primary:      var(--accent-primary);
+  --color-primary-hover: var(--accent-hover);
+  
+  --color-neu-bg:       var(--bg-primary);
+  --color-neu-surface:  var(--bg-card);
+  
+  --color-neu-text:     var(--text-body);
+  --color-neu-muted:    var(--text-muted);
+
+  --shadow-neu:       0 12px 30px rgba(5,31,32,0.08);
+  --shadow-neu-sm:    0 6px 15px rgba(5,31,32,0.06);
+  --shadow-neu-inset: inset 0 2px 4px rgba(5,31,32,0.04);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  html, body {
+    background-color: var(--bg-primary);
+    color: var(--text-body);
+    font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+  }
+}
+
+::-webkit-scrollbar        { width: 8px; }
+::-webkit-scrollbar-track  { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb  { background: var(--accent-primary); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-hover); }
