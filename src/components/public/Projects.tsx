@@ -4,10 +4,12 @@ import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import { NeuCard, NeuButton } from '../common';
 import { useDatabase } from '../../hooks/useDatabase';
 import type { Project } from '../../types';
+import { ProjectModal } from './ProjectModal';
 
 export const Projects: React.FC = () => {
   const { data: projectsData, fetchCollection } = useDatabase<Project>('projects');
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
   useEffect(() => {
     fetchCollection();
@@ -69,7 +71,11 @@ export const Projects: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
               >
-                <NeuCard className="h-full flex flex-col group" hoverEffect>
+                <NeuCard 
+                  className="h-full flex flex-col group cursor-pointer" 
+                  hoverEffect
+                  onClick={() => setSelectedProject(project)}
+                >
                   <div className="relative h-48 sm:h-56 rounded-xl overflow-hidden shadow-neu-inset mb-6">
                     <img 
                       src={project.featuredImage || 'https://via.placeholder.com/600x400'} 
@@ -109,7 +115,7 @@ export const Projects: React.FC = () => {
                       <NeuButton 
                         variant="icon" 
                         size="sm" 
-                        onClick={() => window.open(project.githubUrl, '_blank')}
+                        onClick={(e) => { e.stopPropagation(); window.open(project.githubUrl, '_blank'); }}
                         aria-label="GitHub Repo"
                       >
                         <FiGithub />
@@ -119,7 +125,7 @@ export const Projects: React.FC = () => {
                       <NeuButton 
                         variant="primary" 
                         className="flex-1 gap-2 text-sm"
-                        onClick={() => window.open(project.liveUrl, '_blank')}
+                        onClick={(e) => { e.stopPropagation(); window.open(project.liveUrl, '_blank'); }}
                       >
                         Live Demo <FiExternalLink />
                       </NeuButton>
@@ -137,6 +143,12 @@ export const Projects: React.FC = () => {
           </div>
         )}
       </div>
+
+      <ProjectModal 
+        project={selectedProject} 
+        isOpen={!!selectedProject} 
+        onClose={() => setSelectedProject(null)} 
+      />
     </section>
   );
 };

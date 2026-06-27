@@ -34,7 +34,10 @@ export const ProjectsCMS: React.FC = () => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
       if (project.featuredImage) await deleteFile(project.featuredImage);
-      for (const img of project.images) await deleteFile(img);
+      for (const img of project.images) {
+        const url = typeof img === 'string' ? img : img.url;
+        await deleteFile(url);
+      }
       await deleteDocument(project.id);
       toast.success('Project deleted successfully');
       fetchCollection();
@@ -71,7 +74,7 @@ export const ProjectsCMS: React.FC = () => {
       if (isFeatured) {
         setCurrentProject(prev => ({ ...prev, featuredImage: url }));
       } else {
-        setCurrentProject(prev => ({ ...prev, images: [...(prev.images || []), url] }));
+        setCurrentProject(prev => ({ ...prev, images: [...(prev.images || []), { url, description: '' }] }));
       }
       toast.success('Image uploaded successfully');
     } catch (error) {
@@ -86,7 +89,13 @@ export const ProjectsCMS: React.FC = () => {
       if (isFeatured) {
         setCurrentProject(prev => ({ ...prev, featuredImage: '' }));
       } else {
-        setCurrentProject(prev => ({ ...prev, images: (prev.images || []).filter(img => img !== url) }));
+        setCurrentProject(prev => ({
+          ...prev,
+          images: (prev.images || []).filter(img => {
+            const imgUrl = typeof img === 'string' ? img : img.url;
+            return imgUrl !== url;
+          })
+        }));
       }
     } catch (error) {
       console.error(error);
@@ -155,13 +164,31 @@ export const ProjectsCMS: React.FC = () => {
 
             <div className="space-y-4">
               <label className="text-sm font-medium ml-2">Gallery Images</label>
-              <div className="flex flex-wrap gap-4">
-                {(currentProject.images || []).map((img, idx) => (
-                  <div key={idx} className="relative w-32 h-32 rounded-xl overflow-hidden shadow-neu">
-                    <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
-                    <button type="button" onClick={() => removeImage(img, false)} className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full text-xs"><FiTrash2 /></button>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-4">
+                {(currentProject.images || []).map((img, idx) => {
+                  const imgUrl = typeof img === 'string' ? img : img.url;
+                  const imgDesc = typeof img === 'string' ? '' : (img.description || '');
+                  return (
+                    <div key={idx} className="flex gap-4 items-center bg-neu-bg p-4 rounded-xl shadow-neu-inset">
+                      <div className="relative w-32 h-32 rounded-xl overflow-hidden shadow-neu shrink-0">
+                        <img src={imgUrl} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+                        <button type="button" onClick={() => removeImage(imgUrl, false)} className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full text-xs"><FiTrash2 /></button>
+                      </div>
+                      <div className="flex-1">
+                        <NeuInput
+                          label="Image Description"
+                          value={imgDesc}
+                          onChange={(e) => {
+                            const newImages = [...(currentProject.images || [])];
+                            newImages[idx] = { url: imgUrl, description: e.target.value };
+                            setCurrentProject(prev => ({ ...prev, images: newImages }));
+                          }}
+                          placeholder="Describe this image..."
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
                 <div className="relative w-32 h-32">
                   <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, false)} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                   <NeuButton type="button" className="w-full h-full flex-col gap-2 border-2 border-dashed border-neu-muted/50">

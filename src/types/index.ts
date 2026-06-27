@@ -28,11 +28,11 @@ export interface HeroContent {
 
 export interface AboutContent {
   description: string;
-  education: string;
   careerGoal: string;
   email: string;
-  phone: string;
   location: string;
+  githubUrl: string;
+  linkedinUrl: string;
 }
 
 export interface Skill {
@@ -44,12 +44,17 @@ export interface Skill {
   isVisible: boolean;
 }
 
+export interface ProjectImage {
+  url: string;
+  description: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   featuredImage: string;
-  images: string[];
+  images: (string | ProjectImage)[];
   githubUrl?: string;
   liveUrl?: string;
   techStack: string[];

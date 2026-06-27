@@ -4,10 +4,10 @@
 :root {
   /* Main Backgrounds */
   --bg-primary: #DAF1DE; 
-  --bg-secondary: #8EB69B;
+  --bg-secondary: #7bad8a;
   
   /* Component Backgrounds */
-  --bg-card: #FFFFFF;
+  --bg-card: #f3f1f1;
   
   /* Text */
   --text-primary: #051F20;

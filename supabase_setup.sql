@@ -22,6 +22,8 @@ CREATE TABLE public.profile (
     "email" TEXT,
     "phone" TEXT,
     "location" TEXT,
+    "githubUrl" TEXT,
+    "linkedinUrl" TEXT,
     "siteName" TEXT,
     "theme" TEXT,
     "seoTitle" TEXT,

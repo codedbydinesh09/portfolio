@@ -2,6 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navbar } from '../components/public/Navbar';
 import { Hero } from '../components/public/Hero';
+import { About } from '../components/public/About';
+import { Skills } from '../components/public/Skills';
 import { Projects } from '../components/public/Projects';
 
 export const Home: React.FC = () => {
@@ -17,38 +19,18 @@ export const Home: React.FC = () => {
       <main>
         <Hero />
         
-        {/* About Section Placeholder */}
-        <section id="about" className="py-24 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">About Me</h2>
-             <p className="text-neu-muted max-w-2xl mx-auto">Learn more about my background and skills.</p>
-          </div>
-          <div className="p-12 shadow-neu rounded-3xl text-center text-neu-muted bg-neu-bg">
-            About section coming soon.
-          </div>
-        </section>
+        <About />
         
-        {/* Skills Section Placeholder */}
-        <section id="skills" className="py-24 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">My Skills</h2>
-             <p className="text-neu-muted max-w-2xl mx-auto">Technologies and tools I work with.</p>
-          </div>
-          <div className="p-12 shadow-neu rounded-3xl text-center text-neu-muted bg-neu-bg">
-            Skills section coming soon.
-          </div>
-        </section>
+        <Skills />
 
         <Projects />
 
-        {/* Contact Section Placeholder */}
-        <section id="contact" className="py-24 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-             <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">Get In Touch</h2>
-             <p className="text-neu-muted max-w-2xl mx-auto">Have a project in mind? Let's talk.</p>
-          </div>
-          <div className="p-12 shadow-neu rounded-3xl text-center text-neu-muted bg-neu-bg">
-            Contact form will be implemented here.
+        {/* Thank You Section */}
+        <section id="contact" className="py-24 max-w-4xl mx-auto px-6">
+          <div className="p-12 shadow-neu rounded-3xl text-center bg-neu-bg">
+            <p className="text-xl md:text-2xl font-bold text-neu-text leading-relaxed">
+              Thank you for taking the time to review my portfolio. I appreciate your interest and look forward to opportunities to collaborate and contribute.
+            </p>
           </div>
         </section>
       </main>

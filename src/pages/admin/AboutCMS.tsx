@@ -9,11 +9,11 @@ export const AboutCMS: React.FC = () => {
   
   const [formData, setFormData] = React.useState<AboutContent>({
     description: '',
-    education: '',
     careerGoal: '',
     email: '',
-    phone: '',
-    location: ''
+    location: '',
+    githubUrl: '',
+    linkedinUrl: ''
   });
   
   const [docId, setDocId] = React.useState<string | null>(null);
@@ -33,19 +33,7 @@ export const AboutCMS: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name.includes('.')) {
-      // Not needed anymore since we flattened the state, but kept for safety if other nested fields arise
-      const [parent, child] = name.split('.');
-      setFormData(prev => ({
-        ...prev,
-        [parent]: {
-          ...(prev as any)[parent],
-          [child]: value
-        }
-      }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -74,7 +62,7 @@ export const AboutCMS: React.FC = () => {
     <div className="max-w-4xl animate-fade-in">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-neu-text mb-2">About Section</h1>
-        <p className="text-neu-muted">Manage your personal information, education, and goals.</p>
+        <p className="text-neu-muted">Manage your personal information and career goals.</p>
       </div>
 
       <NeuCard>
@@ -86,16 +74,6 @@ export const AboutCMS: React.FC = () => {
             onChange={handleChange}
             multiline
             rows={5}
-            required
-          />
-          
-          <NeuInput
-            label="Education Journey"
-            name="education"
-            value={formData.education}
-            onChange={handleChange}
-            multiline
-            rows={3}
             required
           />
 
@@ -121,17 +99,33 @@ export const AboutCMS: React.FC = () => {
                 required
               />
               <NeuInput
-                label="Public Phone"
-                name="phone"
-                value={formData.phone || ''}
-                onChange={handleChange}
-              />
-              <NeuInput
                 label="Location (City, Country)"
                 name="location"
                 value={formData.location || ''}
                 onChange={handleChange}
                 required
+              />
+            </div>
+          </div>
+
+          <div className="pt-4 mt-6 border-t border-neu-muted/20">
+            <h3 className="text-lg font-bold mb-4">Social Links</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <NeuInput
+                label="GitHub Profile URL"
+                name="githubUrl"
+                type="url"
+                value={formData.githubUrl || ''}
+                onChange={handleChange}
+                placeholder="https://github.com/yourusername"
+              />
+              <NeuInput
+                label="LinkedIn Profile URL"
+                name="linkedinUrl"
+                type="url"
+                value={formData.linkedinUrl || ''}
+                onChange={handleChange}
+                placeholder="https://linkedin.com/in/yourprofile"
               />
             </div>
           </div>

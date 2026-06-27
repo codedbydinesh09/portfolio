@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NeuCard, NeuInput, NeuButton, FileUpload } from '../../components/common';
 import { useDatabase } from '../../hooks/useDatabase';
 import type { HeroContent } from '../../types';
@@ -19,6 +19,7 @@ export const HeroCMS: React.FC = () => {
   
   const [docId, setDocId] = React.useState<string | null>(null);
   const [saving, setSaving] = React.useState(false);
+  const [typingWordsInput, setTypingWordsInput] = useState('');
 
   useEffect(() => {
     fetchCollection();
@@ -29,6 +30,7 @@ export const HeroCMS: React.FC = () => {
     if (data && data.length > 0) {
       setFormData(data[0]);
       setDocId((data[0] as any).id);
+      setTypingWordsInput((data[0].typingWords || []).join(', '));
     }
   }, [data]);
 
@@ -38,7 +40,11 @@ export const HeroCMS: React.FC = () => {
   };
 
   const handleTypingWordsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const words = e.target.value.split(',').map(w => w.trim());
+    setTypingWordsInput(e.target.value);
+  };
+
+  const handleTypingWordsBlur = () => {
+    const words = typingWordsInput.split(',').map(w => w.trim()).filter(w => w.length > 0);
     setFormData(prev => ({ ...prev, typingWords: words }));
   };
 
@@ -110,8 +116,9 @@ export const HeroCMS: React.FC = () => {
 
           <NeuInput
             label="Typing Words (comma separated)"
-            value={formData.typingWords.join(', ')}
+            value={typingWordsInput}
             onChange={handleTypingWordsChange}
+            onBlur={handleTypingWordsBlur}
             placeholder="React Developer, UI/UX Designer, Freelancer"
           />
 
