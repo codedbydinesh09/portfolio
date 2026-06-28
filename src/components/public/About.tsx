@@ -47,7 +47,7 @@ export const About: React.FC = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
@@ -62,7 +62,7 @@ export const About: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="lg:col-span-2 p-8 rounded-3xl shadow-neu bg-neu-bg"
         >
@@ -84,7 +84,7 @@ export const About: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col gap-6"
         >
@@ -150,7 +150,7 @@ export const About: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-8 p-8 rounded-3xl shadow-neu bg-neu-bg"
         >

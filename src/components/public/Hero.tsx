@@ -125,32 +125,57 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative flex justify-center lg:justify-end"
         >
-          <div className="relative w-72 h-72 md:w-96 md:h-96 rounded-full flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #DAF1DE 0%, #8EB69B 45%, #235347 100%)' }}
+          {/* Photo or initials fallback — no border, no ring, blends into #DAF1DE background */}
+          <div
+            className="relative"
+            style={{
+              width: 'min(42vw, 480px)',
+              height: 'min(42vw, 480px)',
+              minWidth: '280px',
+              minHeight: '280px',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+            }}
           >
-            {/* Outer ring */}
-            <div className="absolute inset-0 rounded-full" style={{ boxShadow: '0 12px 30px rgba(5,31,32,0.18)' }} />
-            {/* Photo or initials fallback */}
-            <div className="w-[88%] h-[88%] rounded-full overflow-hidden relative z-10 border-4 border-white/30">
-              {hero.profilePhotoUrl ? (
-                <img
-                  src={hero.profilePhotoUrl}
-                  alt={hero.name || 'Profile'}
-                  className="w-full h-full object-cover object-top"
-                  onError={(e) => {
-                    const el = e.target as HTMLImageElement;
-                    el.style.display = 'none';
-                    el.parentElement!.innerHTML = `<div style="width:100%;height:100%;background:#163832;display:flex;align-items:center;justify-content:center;font-size:5rem;font-weight:700;color:#DAF1DE;">${(hero.name || 'D').charAt(0).toUpperCase()}</div>`;
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-8xl font-bold"
-                  style={{ background: '#163832', color: '#DAF1DE' }}
-                >
-                  {(hero.name || 'D').charAt(0).toUpperCase()}
-                </div>
-              )}
-            </div>
+            {hero.profilePhotoUrl ? (
+              <img
+                src={hero.profilePhotoUrl}
+                alt={hero.name || 'Profile'}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'top center',
+                  display: 'block',
+                  mixBlendMode: 'multiply',
+                  WebkitMaskImage: 'radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%)',
+                  maskImage: 'radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%)',
+                }}
+                onError={(e) => {
+                  const el = e.target as HTMLImageElement;
+                  el.style.display = 'none';
+                  el.parentElement!.innerHTML = `<div style="width:100%;height:100%;background:#DAF1DE;display:flex;align-items:center;justify-content:center;font-size:8rem;font-weight:700;color:#163832;-webkit-mask-image:radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%);mask-image:radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%);">${(hero.name || 'D').charAt(0).toUpperCase()}</div>`;
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: '#DAF1DE',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '8rem',
+                  fontWeight: 700,
+                  color: '#163832',
+                  WebkitMaskImage: 'radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%)',
+                  maskImage: 'radial-gradient(ellipse 75% 100% at 50% 0%, black 70%, transparent 100%)',
+                }}
+              >
+                {(hero.name || 'D').charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
