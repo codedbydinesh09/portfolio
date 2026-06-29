@@ -38,10 +38,11 @@ export interface AboutContent {
 export interface Skill {
   id: string;
   name: string;
-  category: 'Frontend' | 'Backend' | 'Database' | 'Tools' | 'Programming Languages';
-  icon: string; // React Icons name or URL
+  category: string;
+  icon: string;
   order: number;
   isVisible: boolean;
+  created_at?: string;
 }
 
 export interface ProjectImage {

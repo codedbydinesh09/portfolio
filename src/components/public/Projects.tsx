@@ -29,20 +29,20 @@ export const Projects: React.FC = () => {
     : visibleProjects.filter(p => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="py-14 md:py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">Featured Projects</h2>
           <p className="text-neu-muted max-w-2xl mx-auto">Explore my latest work, side projects, and open source contributions.</p>
         </motion.div>
 
         {/* Categories Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12">
           {categories.map(cat => (
             <NeuButton 
               key={cat}
@@ -59,7 +59,7 @@ export const Projects: React.FC = () => {
         {/* Projects Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8"
         >
           <AnimatePresence>
             {filteredProjects.map((project) => (
@@ -76,7 +76,7 @@ export const Projects: React.FC = () => {
                   hoverEffect
                   onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative h-48 sm:h-56 rounded-xl overflow-hidden shadow-neu-inset mb-6">
+                  <div className="relative h-44 sm:h-56 rounded-xl overflow-hidden shadow-neu-inset mb-4 md:mb-6">
                     <img 
                       src={project.featuredImage || 'https://via.placeholder.com/600x400'} 
                       alt={project.title}

@@ -1,5 +1,6 @@
 -- 0. Drop existing tables to fix camelCase column names
 DROP TABLE IF EXISTS public.profile CASCADE;
+DROP TABLE IF EXISTS public.categories CASCADE;
 DROP TABLE IF EXISTS public.skills CASCADE;
 DROP TABLE IF EXISTS public.projects CASCADE;
 DROP TABLE IF EXISTS public.certificates CASCADE;
@@ -32,14 +33,32 @@ CREATE TABLE public.profile (
     "created_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE public.categories (
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "displayOrder" INTEGER DEFAULT 0,
+    "visible" BOOLEAN DEFAULT true,
+    "created_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE public.skills (
     "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     "name" TEXT NOT NULL,
-    "category" TEXT NOT NULL,
-    "icon" TEXT,
-    "order" INTEGER DEFAULT 0,
-    "isVisible" BOOLEAN DEFAULT true,
-    "created_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    "categoryId" UUID REFERENCES public.categories("id") ON DELETE CASCADE,
+    "iconLibrary" TEXT,
+    "iconName" TEXT,
+    "customIcon" TEXT,
+    "level" INTEGER DEFAULT 0,
+    "experience" TEXT,
+    "projects" INTEGER DEFAULT 0,
+    "description" TEXT,
+    "accentColor" TEXT,
+    "featured" BOOLEAN DEFAULT false,
+    "visible" BOOLEAN DEFAULT true,
+    "displayOrder" INTEGER DEFAULT 0,
+    "created_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    "updated_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE public.projects (
@@ -82,6 +101,7 @@ CREATE TABLE public.contact (
 -- 2. Configure Row Level Security (RLS)
 
 ALTER TABLE public.profile ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.certificates ENABLE ROW LEVEL SECURITY;
@@ -89,6 +109,7 @@ ALTER TABLE public.contact ENABLE ROW LEVEL SECURITY;
 
 -- Allow public read access to portfolio content
 CREATE POLICY "Public profiles are viewable by everyone" ON public.profile FOR SELECT USING (true);
+CREATE POLICY "Public categories are viewable by everyone" ON public.categories FOR SELECT USING (true);
 CREATE POLICY "Public skills are viewable by everyone" ON public.skills FOR SELECT USING (true);
 CREATE POLICY "Public projects are viewable by everyone" ON public.projects FOR SELECT USING (true);
 CREATE POLICY "Public certificates are viewable by everyone" ON public.certificates FOR SELECT USING (true);
@@ -98,6 +119,7 @@ CREATE POLICY "Anyone can submit a contact message" ON public.contact FOR INSERT
 
 -- Allow authenticated users (admin) full access to all tables
 CREATE POLICY "Admin full access profile" ON public.profile FOR ALL TO authenticated USING (true);
+CREATE POLICY "Admin full access categories" ON public.categories FOR ALL TO authenticated USING (true);
 CREATE POLICY "Admin full access skills" ON public.skills FOR ALL TO authenticated USING (true);
 CREATE POLICY "Admin full access projects" ON public.projects FOR ALL TO authenticated USING (true);
 CREATE POLICY "Admin full access certificates" ON public.certificates FOR ALL TO authenticated USING (true);

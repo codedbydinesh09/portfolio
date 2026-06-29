@@ -42,14 +42,14 @@ export const About: React.FC = () => {
   }
 
   return (
-    <section id="about" className="py-24 max-w-7xl mx-auto px-6">
+    <section id="about" className="py-14 md:py-24 max-w-7xl mx-auto px-4 md:px-6">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        className="text-center mb-10 md:mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">About Me</h2>
         <p className="text-neu-muted max-w-2xl mx-auto">
@@ -57,14 +57,14 @@ export const About: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8">
         {/* Main description card */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="lg:col-span-2 p-8 rounded-3xl shadow-neu bg-neu-bg"
+          className="lg:col-span-2 p-5 md:p-8 rounded-3xl shadow-neu bg-neu-bg"
         >
           <h3 className="text-xl font-bold text-neu-text mb-4 flex items-center gap-2">
             <span
@@ -89,7 +89,7 @@ export const About: React.FC = () => {
           className="flex flex-col gap-6"
         >
           {/* Personal info */}
-          <div className="p-6 rounded-3xl shadow-neu bg-neu-bg flex-1">
+          <div className="p-5 md:p-6 rounded-3xl shadow-neu bg-neu-bg flex-1">
             <h3 className="text-lg font-bold text-neu-text mb-4">Contact Info</h3>
             <ul className="space-y-3">
               {about.email && (
@@ -152,7 +152,7 @@ export const About: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 p-8 rounded-3xl shadow-neu bg-neu-bg"
+          className="mt-5 md:mt-8 p-5 md:p-8 rounded-3xl shadow-neu bg-neu-bg"
         >
           <h3 className="text-xl font-bold text-neu-text mb-4 flex items-center gap-2">
             <FiTarget className="text-primary" />

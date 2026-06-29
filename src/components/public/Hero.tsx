@@ -49,19 +49,19 @@ export const Hero: React.FC = () => {
   if (!hero) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative pt-20 pb-32 overflow-hidden">
+    <section id="home" className="min-h-screen flex items-center justify-center relative pt-16 pb-20 md:pt-20 md:pb-32 overflow-hidden">
       {/* Particle Background Placeholder - In real implementation use tsParticles or raw canvas */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
          <div className="absolute top-20 left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse" />
          <div className="absolute bottom-20 right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6"
+          className="space-y-4 md:space-y-6"
         >
           <div className="inline-block px-4 py-2 rounded-full shadow-neu-inset text-sm font-medium text-primary">
             {hero.greeting || "Hello, I am"}
@@ -80,7 +80,7 @@ export const Hero: React.FC = () => {
             {hero.shortIntro || "Building premium, modern web applications with a focus on UI/UX and scalable architectures."}
           </p>
           
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center gap-3 md:gap-4 pt-2 md:pt-4">
             <NeuButton 
               variant="primary" 
               className="gap-2"
@@ -100,7 +100,7 @@ export const Hero: React.FC = () => {
             </NeuButton>
           </div>
           
-          <div className="flex items-center gap-4 pt-8 border-t border-neu-muted/20 w-max">
+          <div className="flex items-center gap-4 pt-4 md:pt-8 border-t border-neu-muted/20 w-max">
             {settings?.socialLinks?.github && (
               <NeuButton variant="icon" onClick={() => window.open(settings.socialLinks.github, '_blank')}>
                 <FiGithub />

@@ -1,27 +1,25 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useDatabase } from '../../hooks/useDatabase';
-import type { Skill } from '../../types';
-import { NeuCard } from '../common';
+﻿import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { useDatabase } from "../../hooks/useDatabase";
+import type { Skill } from "../../types";
+import { PremiumSkillCard } from "../common";
 
 export const Skills: React.FC = () => {
-  const { data: skillsData, loading, fetchCollection } = useDatabase<Skill>('skills');
+  const { data: skillsData, loading: skillsLoading, fetchCollection: fetchSkills } = useDatabase<Skill>("skills");
 
   useEffect(() => {
-    fetchCollection();
+    fetchSkills();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) {
+  if (skillsLoading) {
     return (
-      <section id="skills" className="py-24 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+      <section id="skills" style={{ padding: "3.5rem 1.5rem", maxWidth: "80rem", margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">My Skills</h2>
-          <p className="text-neu-muted max-w-2xl mx-auto">Technologies and tools I work with.</p>
+          <p className="text-neu-muted">Technologies and tools I work with.</p>
         </div>
-        <div className="p-12 shadow-neu rounded-3xl text-center text-neu-muted bg-neu-bg animate-pulse">
-          Loading skills...
-        </div>
+        <div style={{ padding: "3rem", textAlign: "center", borderRadius: "1.5rem" }}>Loading skills...</div>
       </section>
     );
   }
@@ -31,58 +29,52 @@ export const Skills: React.FC = () => {
   }
 
   const visibleSkills = skillsData
-    .filter(s => s.isVisible !== false)
+    .filter((s) => s.isVisible !== false)
     .sort((a, b) => a.order - b.order);
 
-  const categories = ['Frontend', 'Backend', 'Database', 'Tools', 'Programming Languages'];
-
   return (
-    <section id="skills" className="py-24 max-w-7xl mx-auto px-6 relative">
+    <section id="skills" style={{ padding: "3.5rem 1.5rem", maxWidth: "80rem", margin: "0 auto" }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        style={{ textAlign: "center", marginBottom: "3rem" }}
       >
         <h2 className="text-4xl md:text-5xl font-bold text-neu-text mb-4">My Skills</h2>
-        <p className="text-neu-muted max-w-2xl mx-auto">
+        <p className="text-neu-muted" style={{ maxWidth: "42rem", margin: "0 auto" }}>
           Technologies, frameworks, and tools I use to build digital experiences.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-        {categories.map((category, index) => {
-          const categorySkills = visibleSkills.filter(s => s.category === category);
-          if (categorySkills.length === 0) return null;
-
-          return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "1.25rem",
+        }}
+      >
+        {visibleSkills.map((skill, index) => (
+          <div
+            key={skill.id}
+            style={{ width: "280px", flexShrink: 0, flexGrow: 0 }}
+          >
             <motion.div
-              key={category}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              style={{ height: "100%" }}
             >
-              <h3 className="text-2xl font-bold text-neu-text mb-6 pl-2 border-l-4 border-primary">
-                {category}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {categorySkills.map(skill => (
-                  <NeuCard 
-                    key={skill.id} 
-                    className="flex flex-col items-center justify-center p-4 text-center group h-full"
-                    hoverEffect
-                  >
-                    <span className="font-bold text-neu-text group-hover:text-primary transition-colors text-sm">
-                      {skill.name}
-                    </span>
-                  </NeuCard>
-                ))}
-              </div>
+              <PremiumSkillCard
+                skill={skill}
+                categoryName={skill.category}
+                className="h-full"
+              />
             </motion.div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </section>
   );
