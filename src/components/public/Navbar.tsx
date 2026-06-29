@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiHome, FiUser, FiCode, FiBriefcase, FiMail } from 'react-icons/fi';
+import { FiHome, FiUser, FiCode, FiBriefcase } from 'react-icons/fi';
 
 export const Navbar: React.FC = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects'];
       let current = 'home';
       
       for (const section of sections) {
@@ -31,7 +31,6 @@ export const Navbar: React.FC = () => {
     { id: 'about', icon: <FiUser />, label: 'About' },
     { id: 'skills', icon: <FiCode />, label: 'Skills' },
     { id: 'projects', icon: <FiBriefcase />, label: 'Projects' },
-    { id: 'contact', icon: <FiMail />, label: 'Contact' },
   ];
 
   const scrollTo = (id: string) => {
